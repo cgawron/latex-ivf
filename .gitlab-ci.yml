@@ -10,4 +10,4 @@ build:
     - mkdir ~/.fonts
     - cp -r fonts/* ~/.fonts
     - luaotfload-tool -u
-    - latexmk -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
+    - latexmk -quiet -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
