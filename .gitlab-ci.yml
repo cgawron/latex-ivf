@@ -1,0 +1,13 @@
+image: marvinmenzerath/latex
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - tex/lehrbrief-vorlage.pdf
+  script:
+    - cd tex
+    - mkdir ~/.fonts
+    - cp -r fonts/* ~/.fonts
+    - luaotfload-tool -u
+    - latexmk -quiet -f -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
