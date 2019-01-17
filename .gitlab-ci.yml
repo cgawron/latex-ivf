@@ -5,6 +5,8 @@ build:
   artifacts:
     paths:
       - tex/lehrbrief-vorlage.pdf
+      - tex/ifv.sty
+      - tex/lehrbrief-vorlage.tex
   script:
     - cd tex
     - mkdir ~/.fonts
