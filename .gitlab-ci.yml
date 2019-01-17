@@ -4,7 +4,7 @@ build:
   stage: build
   artifacts:
     paths:
-      - main.pdf
+      - tex/lehrbrief-vorlage.pdf
   script:
     - cd tex
-    - latexmk -pdflatex=lualatex -pdflehrbrief-vorlage.tex
+    - latexmk -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
