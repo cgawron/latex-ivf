@@ -1,0 +1,10 @@
+image: marvinmenzerath/latex
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - main.pdf
+  script:
+    - cd tex
+    - latexmk -pdflatex=lualatex -pdflehrbrief-vorlage.tex
