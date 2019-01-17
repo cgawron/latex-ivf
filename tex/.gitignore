@@ -8,3 +8,12 @@
 *.idx
 *.out
 *.pdf
+
+*.bbl
+*.blg
+
+*.fls
+*.fdb_latexmk
+
+*.ilg
+*.ind
