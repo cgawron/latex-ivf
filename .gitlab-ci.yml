@@ -8,6 +8,6 @@ build:
   script:
     - cd tex
     - mkdir ~/.fonts
-    - cp -r font/* ~/.fonts
+    - cp -r fonts/* ~/.fonts
     - luaotfload-tool -u
     - latexmk -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
