@@ -7,4 +7,7 @@ build:
       - tex/lehrbrief-vorlage.pdf
   script:
     - cd tex
+    - mkdir ~/.fonts
+    - cp -r font/* ~/.fonts
+    - luaotfload-tool -u
     - latexmk -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
