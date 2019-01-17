@@ -84,11 +84,14 @@
 \addcontentsline{toc}{section}{Index}
 %\setmonofont[FakeStretch=1,Scale=.85,Mapping=tex-text]{Menlo}
 % Befehle im Index extra in Courier, weil sie so besser unterscheidbar sind. (Menlo ist der Lauftextschrift zu ähnlich)
-\ifthenelse{\equal{\hasMenloFont}{True}}{%
-\setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text]{Courier New}
-}{%
-\setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text,ExternalLocation=./]{Courier New.ttf}
-}
+\ifmenlofont%
+  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text]{Courier New}
+\else
+  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text,ExternalLocation=./]{Courier New.ttf}
+\fi
+\begin{figure}
+  
+\end{figure}
 \lstset{language={}}
 \printindex                                  % Typeset the actual Index.
 \let\thispagestyle=\originalstyle

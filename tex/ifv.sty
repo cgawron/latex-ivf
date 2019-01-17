@@ -1,11 +1,40 @@
 %%
-%% 
+%% Dies ist ifv.sty, ein Paket zum erzeugen von Lehrbrien für das Institut für Verbundstudien NRW.
+%%
+%% Copyright (C) 2019 Hans-Georg Eßer & Christian Gawron
 %%
 \ProvidesPackage{ifv}[2019/01/17 IFV Package - Lehrbriefe des Instituts für Verbundstudien NRW]
 
-\RequirePackage{ifxetex,ifluatex}
+% Option für Menlo-Font im aktuellen Verzeichnis (nur für XeLaTeX relevant?)
+\newif\ifmenlofont\menlofonttrue
+\DeclareOption{localMenloFont}{\menlofontfalse}
 
-\def\hasMenloFont{True}
+
+\ProcessOptions\relax
+
+\RequirePackage{ifxetex,ifluatex}
+\RequirePackage{fontspec}
+\ifxetex
+    \RequirePackage{xltxtra}
+    \RequirePackage{xunicode}
+\else
+    \newcommand{\XeLaTeX}{XeLaTeX}
+\fi
+
+\ifmenlofont
+  \setmonofont[FakeStretch=.9,Scale=.85]{Menlo}%
+  \newcommand\textzz[1]{%
+    \fontspec{Menlo}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
+  \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+\else
+  \setmonofont[FakeStretch=.9,Scale=.85,ExternalLocation=./]{Menlo.ttc}
+  \newcommand\textzz[1]{%
+    \fontspec{Menlo.ttc}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
+  \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+\fi
+
+
+
 
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{a4paper,rmargin=7cm,lmargin=3cm,top=2cm,bottom=3cm}                   % ... or a4paper or a5paper or ... 
@@ -38,13 +67,7 @@
 \usepackage{tikz}
 \usepackage{ulem} % u.a. \sout zum Durchstreichen
 
-\RequirePackage{fontspec}
-\ifxetex
-    \RequirePackage{xltxtra}
-    \RequirePackage{xunicode}
-\else
-    \newcommand{\XeLaTeX}{XeLaTeX}
-\fi
+
 
 \defaultfontfeatures{Mapping=tex-text}
 \usepackage{comicneue}
@@ -82,12 +105,6 @@
 %{"}{{\char"22}}1
 } % ordentliche Backticks ` und Ticks '
 
-\ifthenelse{\equal{\hasMenloFont}{True}}{%
-  \setmonofont[FakeStretch=.9,Scale=.85]{Menlo}
-}%
-{%
-  \setmonofont[FakeStretch=.9,Scale=.85,ExternalLocation=./]{Menlo.ttc}
-}%
 
 \renewcommand{\baselinestretch}{1.1}\normalsize
 
@@ -112,24 +129,9 @@
   singlelinecheck=off
 }
 
-\ifthenelse{\equal{\hasMenloFont}{True}}{%
-\newcommand\textzz[1]{%
-{%
-\fontspec{Menlo}[FakeStretch=1,Scale=.85,Mapping=tex-text]%
-{#1}%
-}%
-}
-\newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
-}
-{
-\newcommand\textzz[1]{%
-{%
-\fontspec{Menlo.ttc}[FakeStretch=1,Scale=.85,Mapping=tex-text]%
-{#1}%
-}%
-}
-\newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
-}
+
+
+
 
 \newcommand\mcmd[1]{\marginnote{\textzz{#1}}}
 
