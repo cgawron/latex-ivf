@@ -1,4 +1,3 @@
-
 ifv.sty ist ein LaTeX-Paket zur Erzeugung von Lehrbriefen für das Institut für Verbundstudien NRW
 
 ## Installation unter OpenSuse Leap 42.3:
@@ -23,7 +22,7 @@ change following line:
 
 ## Installation unter Debian 9
 ```
-sudo apt install tex-live texlive-sidecap texlive-bytefield texlive-mnsymbol texlive-background texlive-comicneue texlive-idxlayout texlive-menukeys texlive-adjmulticol 
+sudo apt install texlive texlive-sidecap texlive-bytefield texlive-mnsymbol texlive-background texlive-comicneue texlive-idxlayout texlive-menukeys texlive-adjmulticol 
 mkdir ~/.fonts
 cp tex/fonts/* ~/.fonts
 luaotfload-tool -u
@@ -31,5 +30,5 @@ luaotfload-tool -u
 
 Übersetzen eines Lehrbriefs mit 
 ```
-latexmk -quiet -f -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
+latexmk -quiet -pdflatex=lualatex -pdf lehrbrief-vorlage.tex
 ```
