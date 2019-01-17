@@ -331,3 +331,57 @@ contents={%
 % durchgehende Fußnoten-Nummern:
 \usepackage{chngcntr}
 \counterwithout{footnote}{chapter}
+
+
+\newcommand{\createbackmatter}{
+    \backmatter
+
+\appendix
+
+%\addcontentsline{toc}{chapter}{Anhänge}
+%\addtocontents{toc}{\vspace{6mm}}
+%\addtocontents{toc}{\protect\pagebreak}
+\begin{adjmulticols}{1}{0cm}{-5.2cm}  % machs breiter
+\begingroup
+\let\cleardoublepage\relax
+\bibliographystyle{hge-is-alpha-de}
+\addcontentsline{toc}{chapter}{Anhänge}
+\addcontentsline{toc}{section}{Literaturverzeichnis}
+\bibliography{lit}
+\vspace{5mm}
+%\pagebreak
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+\listoffigures
+\vspace{5mm}
+%\pagebreak
+\listoftables
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
+\vspace{5mm}
+\lstlistoflistings
+\addcontentsline{toc}{section}{Listing-Verzeichnis}
+%\vspace{5mm}
+%\raggedright
+\endgroup
+
+\end{adjmulticols}
+
+\clearpage
+\let\originalstyle=\thispagestyle
+\def\thispagestyle##1{}
+%\addtocontents{toc}{\protect\enlargethispage{2cm}}
+\addcontentsline{toc}{section}{Index} % 2x, weil buggy. außerdem falsche Seitenzahl :(
+\addcontentsline{toc}{section}{Index}
+%\setmonofont[FakeStretch=1,Scale=.85,Mapping=tex-text]{Menlo}
+% Befehle im Index extra in Courier, weil sie so besser unterscheidbar sind. (Menlo ist der Lauftextschrift zu ähnlich)
+\ifmenlofont%
+  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text]{Courier New}
+\else
+  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text,ExternalLocation=./]{Courier New.ttf}
+\fi
+\begin{figure}
+  
+\end{figure}
+\lstset{language={}}
+\printindex                                  % Typeset the actual Index.
+\let\thispagestyle=\originalstyle
+}
