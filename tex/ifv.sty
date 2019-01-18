@@ -7,8 +7,9 @@
 
 % Option für Menlo-Font im aktuellen Verzeichnis (nur für XeLaTeX relevant?)
 \newif\ifmenlofont\menlofonttrue
+\newif\ifconsolas\consolasfalse
 \DeclareOption{localMenloFont}{\menlofontfalse}
-
+\DeclareOption{consolas}{\consolastrue}
 
 \ProcessOptions\relax
 
@@ -21,18 +22,26 @@
     \newcommand{\XeLaTeX}{XeLaTeX}
 \fi
 
-\ifmenlofont
-  \setmonofont[FakeStretch=.9,Scale=.85]{Menlo}%
-  \newcommand\textzz[1]{%
-    \fontspec{Menlo}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
-  \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+\ifconsolas
+    %\setmonofont[FakeStretch=.9,Scale=.85]{Consolas}
+    \setmonofont{Consolas}
+    \newcommand\textzz[1]{%
+        %\fontspec{Consolas}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
+        \fontspec{Consolas}{#1}}%
+    \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
 \else
-  \setmonofont[FakeStretch=.9,Scale=.85,ExternalLocation=./]{Menlo.ttc}
-  \newcommand\textzz[1]{%
-    \fontspec{Menlo.ttc}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
-  \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+    \ifmenlofont
+        \setmonofont[FakeStretch=.9,Scale=.85]{Menlo}%
+        \newcommand\textzz[1]{%
+            \fontspec{Menlo}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
+        \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+    \else
+        \setmonofont[FakeStretch=.9,Scale=.85,ExternalLocation=./]{Menlo.ttc}
+        \newcommand\textzz[1]{%
+            \fontspec{Menlo.ttc}[FakeStretch=1,Scale=.85,Mapping=tex-text]{#1}}%
+        \newcommand\icmd[1]{\cmdindex{#1}\marginnote{\textzz{#1}}}
+    \fi
 \fi
-
 
 
 
@@ -70,8 +79,9 @@
 
 
 \defaultfontfeatures{Mapping=tex-text}
-\usepackage{comicneue}
-\setmainfont[Scale=0.97]{Cambria}
+%\usepackage{comicneue}
+%\setmainfont[Scale=0.97]{Cambria}
+\setmainfont{Cambria}
 \setsansfont{Calibri}
 \usepackage{microtype}  % optischer Randausgleich
 
@@ -373,10 +383,13 @@ contents={%
 \addcontentsline{toc}{section}{Index}
 %\setmonofont[FakeStretch=1,Scale=.85,Mapping=tex-text]{Menlo}
 % Befehle im Index extra in Courier, weil sie so besser unterscheidbar sind. (Menlo ist der Lauftextschrift zu ähnlich)
-\ifmenlofont%
-  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text]{Courier New}
+\ifconsolas
 \else
-  \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text,ExternalLocation=./]{Courier New.ttf}
+    \ifmenlofont%
+        \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text]{Courier New}
+    \else
+        \setmonofont[FakeStretch=1,FakeBold=4.5,Scale=.95,Mapping=tex-text,ExternalLocation=./]{Courier New.ttf}
+    \fi
 \fi
 \begin{figure}
   
